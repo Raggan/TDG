@@ -29,34 +29,13 @@ Game.prototype = {
 	update: function() {
 
 
-
-    if (!game.physics.arcade.overlap(player1, player2)){
-		player1.body.moves = true;
-    player1.body.velocity.x = 50;
-    player2.body.velocity.x = -50;
-
-    player1.animations.play('right');
-    player2.animations.play('left');
-  }
-
-  else if (player2.alive) {
-    //  Stand still
-  player1.animations.stop();
-
-  player1.frame = 4;
-
-	player1.body.moves = false;
-	player2.kill()
-	//playerHit(player1,player2);
-	}
-
 	if (game.physics.arcade.collide(player1, castle1)){
-		//  Stand still
-	player1.animations.stop();
 
-	player1.frame = 4;
+		this.playerStopMovement(player1);
 
-	player1.body.moves = false;
+	}
+	else {
+		this.playerMovement(player1);
 	}
 
 },
@@ -65,6 +44,14 @@ playerHit: function(player1, player2)
 {
 	game.time.events.loop(1000, player2.damage(1), this);
 
-}
+},
+playerStopMovement: function(player) {
+	player.animations.stop();
+	player.frame =4;
+},
 
+playerMovement: function(player) {
+	player1.body.velocity.x = 50;
+	player1.animations.play('right');
+}
 };
