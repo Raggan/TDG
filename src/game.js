@@ -12,6 +12,8 @@ Game.prototype = {
     //castle1.body.immovable = true;
     player1 = game.add.sprite(55, 370, 'dude');
     player2 = game.add.sprite(715, 370, 'dude');
+		player1.health=100;
+		player2.health=50;
     game.physics.arcade.enable(player1);
     game.physics.arcade.enable(player2);
     game.physics.arcade.enable(castle1);
@@ -28,8 +30,8 @@ Game.prototype = {
 
 
 
-    if (!game.physics.arcade.collide(player1, player2)){
-      //  Move to the right
+    if (!game.physics.arcade.overlap(player1, player2)){
+		player1.body.moves = true;
     player1.body.velocity.x = 50;
     player2.body.velocity.x = -50;
 
@@ -37,15 +39,32 @@ Game.prototype = {
     player2.animations.play('left');
   }
 
-  else  {
+  else if (player2.alive) {
     //  Stand still
   player1.animations.stop();
-  player2.animations.stop();
+
   player1.frame = 4;
-  player2.frame = 4;
 
-  }
-
+	player1.body.moves = false;
+	player2.kill();
+	//playerHit(player1,player2);
 	}
+
+	if (game.physics.arcade.collide(player1, castle1)){
+		//  Stand still
+	player1.animations.stop();
+
+	player1.frame = 4;
+
+	player1.body.moves = false;
+	}
+
+},
+
+playerHit: function(player1, player2)
+{
+	game.time.events.loop(1000, player2.damage(1), this);
+
+}
 
 };
