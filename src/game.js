@@ -10,8 +10,9 @@ Game.prototype = {
     castle1 = game.add.sprite(10,250, "castle2");
     castle2 = game.add.sprite(670,240, "castle1");
     //castle1.body.immovable = true;
-    player1 = game.add.sprite(55, 320, 'dude');
-    player2 = game.add.sprite(715, 320, 'dude');
+    player1 = game.add.sprite(55, 315, 'dude');
+    player2 = game.add.sprite(715, 315, 'dude');
+
 		player1.health=100;
 		player2.health=50;
     game.physics.arcade.enable(player1);
@@ -23,6 +24,7 @@ Game.prototype = {
     castle1.body.moves = false;
     castle2.body.moves = false;
 
+		//player1.body.setSize(200,60,0,0);
 
 
 	},
@@ -57,8 +59,8 @@ Game.prototype = {
 	if (game.physics.arcade.overlap(player1, player2)){
 
 		this.playerStopMovement(player1);
-		this.enemyStopMovement(player2);
-		player2.kill();
+		//this.enemyStopMovement(player2);
+		//player1.kill();
 	}
 
 
@@ -76,8 +78,8 @@ playerStopMovement: function(player) {
 },
 
 playerMovement: function(player) {
-	player1.body.velocity.x = 50;
-	player1.animations.play('right');
+	player.body.velocity.x = 50;
+	player.animations.play('right');
 },
 
 enemyStopMovement: function(enemy) {
