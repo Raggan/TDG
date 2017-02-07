@@ -7,7 +7,7 @@ Game.prototype = {
 	create: function() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.add.sprite(0,0,"background");
-    castle2 = game.add.sprite(10,245, "castle2");
+    castle2 = game.add.sprite(10,250, "castle2");
     castle1 = game.add.sprite(670,240, "castle1");
     //castle1.body.immovable = true;
     player1 = game.add.sprite(55, 320, 'dude');
