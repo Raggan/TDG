@@ -6,7 +6,7 @@ Game.prototype = {
 
 	create: function() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
-    game.add.sprite(0,0,"background");
+	  game.add.sprite(0,0,"background");
     castle1 = game.add.sprite(10,250, "castle2");
     castle2 = game.add.sprite(670,240, "castle1");
     //castle1.body.immovable = true;
@@ -24,7 +24,14 @@ Game.prototype = {
     castle2.body.moves = false;
 
 
+
 	},
+	render: function() {
+	game.debug.body(player1);
+	game.debug.body(player2);
+	game.debug.body(castle1);
+	game.debug.body(castle2);
+},
 
 	update: function() {
 
@@ -51,7 +58,7 @@ Game.prototype = {
 
 		this.playerStopMovement(player1);
 		this.enemyStopMovement(player2);
-		//player2.kill();
+		player2.kill();
 	}
 
 
