@@ -7,11 +7,11 @@ Game.prototype = {
 	create: function() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.add.sprite(0,0,"background");
-    castle2 = game.add.sprite(10,305, "castle2");
-    castle1 = game.add.sprite(670,300, "castle1");
+    castle2 = game.add.sprite(10,245, "castle2");
+    castle1 = game.add.sprite(670,240, "castle1");
     //castle1.body.immovable = true;
-    player1 = game.add.sprite(55, 370, 'dude');
-    player2 = game.add.sprite(715, 370, 'dude');
+    player1 = game.add.sprite(55, 320, 'dude');
+    player2 = game.add.sprite(715, 320, 'dude');
 		player1.health=100;
 		player2.health=50;
     game.physics.arcade.enable(player1);
@@ -46,7 +46,7 @@ Game.prototype = {
   player1.frame = 4;
 
 	player1.body.moves = false;
-	player2.kill();
+	player2.kill()
 	//playerHit(player1,player2);
 	}
 
