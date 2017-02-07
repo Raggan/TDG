@@ -7,8 +7,8 @@ Game.prototype = {
 	create: function() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.add.sprite(0,0,"background");
-    castle2 = game.add.sprite(10,250, "castle2");
-    castle1 = game.add.sprite(670,240, "castle1");
+    castle1 = game.add.sprite(10,250, "castle2");
+    castle2 = game.add.sprite(670,240, "castle1");
     //castle1.body.immovable = true;
     player1 = game.add.sprite(55, 320, 'dude');
     player2 = game.add.sprite(715, 320, 'dude');
@@ -29,7 +29,7 @@ Game.prototype = {
 	update: function() {
 
 
-	if (game.physics.arcade.collide(player1, castle1)){
+	if (game.physics.arcade.overlap(player1, castle2)){
 
 		this.playerStopMovement(player1);
 
@@ -37,6 +37,23 @@ Game.prototype = {
 	else {
 		this.playerMovement(player1);
 	}
+
+	if (game.physics.arcade.overlap(player2, castle1)){
+
+		this.enemyStopMovement(player2);
+
+	}
+	else {
+		this.enemyMovement(player2);
+	}
+
+	if (game.physics.arcade.overlap(player1, player2)){
+
+		this.playerStopMovement(player1);
+		this.enemyStopMovement(player2);
+		//player2.kill();
+	}
+
 
 },
 
@@ -47,11 +64,25 @@ playerHit: function(player1, player2)
 },
 playerStopMovement: function(player) {
 	player.animations.stop();
+	player.body.velocity.x = 0;
 	player.frame =4;
 },
 
 playerMovement: function(player) {
 	player1.body.velocity.x = 50;
 	player1.animations.play('right');
+},
+
+enemyStopMovement: function(enemy) {
+	enemy.animations.stop();
+	enemy.body.velocity.x = 0;
+	enemy.frame =4;
+},
+
+enemyMovement: function(enemy) {
+	enemy.body.velocity.x = -50;
+	enemy.animations.play('left');
 }
+
+
 };
