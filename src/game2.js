@@ -11,12 +11,22 @@ Game.prototype = {
     castle1 = game.add.sprite(10,250, "castle2");
     castle2 = game.add.sprite(670,240, "castle1");
 
-		this.minions = this.game.add.group();
-		this.minions.enableBody = true;
-		this.minions.physicsBodyType = Phaser.Physics.ARCADE;
-		this.minions.createMultiple(50, 'dude');
-		this.minions.forEach(function (minion) {
+		this.minionsWeak = this.game.add.group();
+		this.minionsWeak.enableBody = true;
+		this.minionsWeak.physicsBodyType = Phaser.Physics.ARCADE;
+		this.minionsWeak.createMultiple(50, 'minion_weak');
+		this.minionsWeak.forEach(function (minion) {
 			minion.animations.add('right', [5, 6, 7, 8], 5, true);
+			minion.speed = 50;
+		});
+
+		this.minionsStrong = this.game.add.group();
+		this.minionsStrong.enableBody = true;
+		this.minionsStrong.physicsBodyType = Phaser.Physics.ARCADE;
+		this.minionsStrong.createMultiple(50, 'minion_strong');
+		this.minionsStrong.forEach(function (minion) {
+			minion.animations.add('right', [5, 6, 7, 8], 5, true);
+			minion.speed=60;
 		});
 
     game.physics.arcade.enable(castle1);
@@ -26,15 +36,18 @@ Game.prototype = {
     castle1.body.moves = false;
     castle2.body.moves = false;
 
-	  spawnButton = game.add.button(30,30, 'spawnbutton_minion_weak', this.spawnButtonClick, this);
-		spawnButton.anchor.setTo(0.5,0.5);
+	  spawnButtonWeak = game.add.button(30,30, 'spawnbutton_minion_weak', this.spawnButtonWeakClick, this);
+		spawnButtonWeak.anchor.setTo(0.5,0.5);
+
+		spawnButtonStrong = game.add.button(80,30, 'spawnbutton_minion_strong', this.spawnButtonStrongClick, this);
+		spawnButtonStrong.anchor.setTo(0.5,0.5);
 
 
 
 	},
 	render: function() {
 
-		// this.minions.forEach(function (minion) {
+		// this.minionsWeak.forEach(function (minion) {
 		// 		game.debug.body(minion);
 		// });
 	  // game.debug.body(castle2);
@@ -42,24 +55,31 @@ Game.prototype = {
 
 	update: function() {
 
-	game.physics.arcade.overlap(this.minions, castle2,this.minionStopMovement);
-
+	game.physics.arcade.overlap(this.minionsWeak, castle2,this.minionStopMovement);
+	game.physics.arcade.overlap(this.minionsStrong, castle2,this.minionStopMovement);
 },
 
-	spawnButtonClick: function() {
-		var minion = this.minions.getFirstExists(false);
+	spawnButtonWeakClick: function() {
+		var minion = this.minionsWeak.getFirstExists(false);
 		minion.reset(45,320);
 		this.minionMovement(minion);
 	},
 
-	minionStopMovement: function(castle, minions) {
-		minions.animations.stop();
-		minions.body.velocity.x = 0;
-		minions.frame =4;
+	spawnButtonStrongClick: function() {
+		var minion = this.minionsStrong.getFirstExists(false);
+		minion.reset(45,320);
+		this.minionMovement(minion);
+	},
+
+	minionStopMovement: function(castle, minion) {
+
+		minion.animations.stop();
+		minion.body.velocity.x = 0;
+		minion.frame =4;
 	},
 
  minionMovement: function(minion) {
-  minion.body.velocity.x = 50;
+  minion.body.velocity.x = minion.speed;
  	minion.animations.play('right');
  }
 
