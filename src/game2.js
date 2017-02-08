@@ -5,67 +5,62 @@ var Game = function(game){
 Game.prototype = {
 
 	create: function() {
+
     game.physics.startSystem(Phaser.Physics.ARCADE);
 	  game.add.sprite(0,0,"background");
     castle1 = game.add.sprite(10,250, "castle2");
     castle2 = game.add.sprite(670,240, "castle1");
 
-    player = game.add.sprite(55, 315, 'dude');
-
-
-		player.health=100;
-
-    game.physics.arcade.enable(player);
+		this.minions = this.game.add.group();
+		this.minions.enableBody = true;
+		this.minions.physicsBodyType = Phaser.Physics.ARCADE;
+		this.minions.createMultiple(50, 'dude');
+		this.minions.forEach(function (minion) {
+			minion.animations.add('right', [5, 6, 7, 8], 5, true);
+		});
 
     game.physics.arcade.enable(castle1);
     game.physics.arcade.enable(castle2);
-    player.animations.add('right', [5, 6, 7, 8], 5, true);
+
 
     castle1.body.moves = false;
     castle2.body.moves = false;
 
-		//player.body.setSize(200,60,0,0);
+	  spawnButton = game.add.button(30,30, 'spawnbutton_minion_weak', this.spawnButtonClick, this);
+		spawnButton.anchor.setTo(0.5,0.5);
+
 
 
 	},
 	render: function() {
-	// game.debug.body(player);
 
-	// game.debug.body(castle1);
-	// game.debug.body(castle2);
+		// this.minions.forEach(function (minion) {
+		// 		game.debug.body(minion);
+		// });
+	  // game.debug.body(castle2);
 },
 
 	update: function() {
 
-
-	if (game.physics.arcade.overlap(player, castle2)){
-
-		this.playerStopMovement(player);
-
-	}
-	else {
-		this.playerMovement(player);
-	}
-
-
+	game.physics.arcade.overlap(this.minions, castle2,this.minionStopMovement);
 
 },
 
-playerHit: function(player, enemy)
-{
-	game.time.events.loop(1000, enemy.damage(1), this);
+	spawnButtonClick: function() {
+		var minion = this.minions.getFirstExists(false);
+		minion.reset(45,320);
+		this.minionMovement(minion);
+	},
 
-},
-playerStopMovement: function(player) {
-	player.animations.stop();
-	player.body.velocity.x = 0;
-	player.frame =4;
-},
+	minionStopMovement: function(castle, minions) {
+		minions.animations.stop();
+		minions.body.velocity.x = 0;
+		minions.frame =4;
+	},
 
-playerMovement: function(player) {
-	player.body.velocity.x = 50;
-	player.animations.play('right');
-}
-
+ minionMovement: function(minion) {
+  minion.body.velocity.x = 50;
+ 	minion.animations.play('right');
+ }
 
 };
