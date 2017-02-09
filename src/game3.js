@@ -20,7 +20,7 @@ Game.prototype = {
     castle2.body.moves = false;
 		castle1.health = castle2.health = castle2.maxHealth = 1000;
 		this.createSpawnButtons();
-
+		var once = false;
 
 
 
@@ -49,8 +49,8 @@ Game.prototype = {
 
 		minion.body.velocity.x = 0;
 		minion.animations.play('attack');
-		this.minionDamage(castle,minion);
-		//this.game.time.events.add(Phaser.Timer.SECOND * 5, this.minionDamage, this, castle,minion);
+		//this.minionDamage(castle,minion);
+		if (!minion.fights == true) {this.game.time.events.loop(1000, function(obj1, obj2){    this.minionDamage(castle,minion);}, this); minion.fights = true;}
 
 
 	},
@@ -70,7 +70,7 @@ Game.prototype = {
 	 			minion.animations.add('right', [9, 10, 11, 12,13,14,15,16,17], 5, true);
 				minion.animations.add('attack', [0,1,2,3,4,5,6,7,8], 5, true);
 	 			minion.speed = 50;
-				minion.dmg = 1;
+				minion.dmg = 10;
 				minion.fights = false;
 	 		});
  },
@@ -78,7 +78,7 @@ Game.prototype = {
  minionDamage: function(castle, minion) {
 	 castle.damage(minion.dmg);
 	 castleHealthBar.setPercent(castle.health/castle.maxHealth*100);
-	 if (castle.health <=0) { castleHealthBar.kill();minion.animations.stop(null, true);}
+	 if (castle.health <=0) { castleHealthBar.kill();minion.animations.stop(null, true);minion.fights=false;}
  },
 
 
