@@ -45,12 +45,12 @@ Game.prototype = {
 		this.minionMovement(minion);
 	},
 
-	minionStartFight: function(castle, minion) {
+	minionStartFight: function(enemy, minion) {
 
 		minion.body.velocity.x = 0;
 		minion.animations.play('attack');
 		//this.minionDamage(castle,minion);
-		if (!minion.fights == true) {this.game.time.events.loop(1000, function(obj1, obj2){    this.minionDamage(castle,minion);}, this); minion.fights = true;}
+		if (!minion.fights == true) {this.game.time.events.loop(1000, function(obj1, obj2){    this.minionDamage(enemy,minion);}, this); minion.fights = true;}
 
 
 	},
@@ -72,13 +72,13 @@ Game.prototype = {
 	 			minion.speed = 50;
 				minion.dmg = 10;
 				minion.fights = false;
-	 		});
+			});
  },
 
- minionDamage: function(castle, minion) {
-	 castle.damage(minion.dmg);
-	 castleHealthBar.setPercent(castle.health/castle.maxHealth*100);
-	 if (castle.health <=0) { castleHealthBar.kill();minion.animations.stop(null, true);minion.fights=false;}
+ minionDamage: function(enemy, minion) {
+	 enemy.damage(minion.dmg);
+	 this.updateCastleHealthBar(enemy);
+	 if (enemy.health <=0) { castleHealthBar.kill();minion.animations.stop(null, true);minion.fights=false;}
  },
 
 
@@ -105,6 +105,11 @@ Game.prototype = {
 		 flipped: false
 	 };
 	 castleHealthBar = new HealthBar(this.game, barConfigCastle);
+ },
+
+ updateCastleHealthBar: function(castle){
+	 castleHealthBar.setPercent(castle.health/castle.maxHealth*100);
+
  }
 
 };
