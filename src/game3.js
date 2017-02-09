@@ -5,7 +5,7 @@ var Game = function(game){
 Game.prototype = {
 
 	create: function() {
-
+		var self = this;
     game.physics.startSystem(Phaser.Physics.ARCADE);
 	  game.add.sprite(0,0,"background");
     castle1 = game.add.sprite(10,250, "castle2");
@@ -15,11 +15,12 @@ Game.prototype = {
     game.physics.arcade.enable(castle2);
 
 		this.createMinionsWeak();
-
+		this.createCastleHealthbar();
     castle1.body.moves = false;
     castle2.body.moves = false;
-
+		castle1.health = castle2.health = castle2.maxHealth = 1000;
 		this.createSpawnButtons();
+
 
 
 
@@ -34,7 +35,7 @@ Game.prototype = {
 
 	update: function() {
 
-	game.physics.arcade.overlap(this.minionsWeak, castle2,this.minionStopMovement);
+	game.physics.arcade.overlap(this.minionsWeak, castle2,this.minionStartFight, null, this);
 
 },
 
@@ -44,10 +45,14 @@ Game.prototype = {
 		this.minionMovement(minion);
 	},
 
-	minionStopMovement: function(castle, minion) {
+	minionStartFight: function(castle, minion) {
 
 		minion.body.velocity.x = 0;
 		minion.animations.play('attack');
+		this.minionDamage(castle,minion);
+		//this.game.time.events.add(Phaser.Timer.SECOND * 5, this.minionDamage, this, castle,minion);
+
+
 	},
 
  minionMovement: function(minion) {
@@ -65,7 +70,15 @@ Game.prototype = {
 	 			minion.animations.add('right', [9, 10, 11, 12,13,14,15,16,17], 5, true);
 				minion.animations.add('attack', [0,1,2,3,4,5,6,7,8], 5, true);
 	 			minion.speed = 50;
+				minion.dmg = 1;
+				minion.fights = false;
 	 		});
+ },
+
+ minionDamage: function(castle, minion) {
+	 castle.damage(minion.dmg);
+	 castleHealthBar.setPercent(castle.health/castle.maxHealth*100);
+	 if (castle.health <=0) { castleHealthBar.kill();minion.animations.stop(null, true);}
  },
 
 
@@ -74,6 +87,24 @@ Game.prototype = {
 	 spawnButtonWeak = game.add.button(30,30, 'spawnbutton_minion_weak', this.spawnButtonWeakClick, this);
 	 spawnButtonWeak.anchor.setTo(0.5,0.5);
 
+ },
+
+ createCastleHealthbar: function()
+ {
+	 var barConfigCastle = {x: 733,
+		 y: 220,
+		 width: 80,
+		 height: 10,
+		 bg: {
+				 color: '#651828'
+				 },
+		 bar: {
+				 color: '#ff0000'
+				 },
+		 animationDuration: 200,
+		 flipped: false
+	 };
+	 castleHealthBar = new HealthBar(this.game, barConfigCastle);
  }
 
 };
