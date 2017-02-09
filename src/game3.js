@@ -28,10 +28,10 @@ Game.prototype = {
 	},
 	render: function() {
 
-		this.minionsWeak.forEach(function (minion) {
-		 		game.debug.body(minion);
-		});
-	  game.debug.body(castle2);
+		// this.minionsWeak.forEach(function (minion) {
+		//  		game.debug.body(minion);
+		// });
+	  // game.debug.body(castle2);
 		// this.enemysWeak.forEach(function (enemy) {
 		// 		game.debug.body(enemy);
 		// });
