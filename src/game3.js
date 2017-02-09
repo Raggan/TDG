@@ -15,27 +15,33 @@ Game.prototype = {
     game.physics.arcade.enable(castle2);
 
 		this.createMinionsWeak();
+	//	this.createEnemysWeak();
 		this.createCastleHealthbar();
     castle1.body.moves = false;
     castle2.body.moves = false;
 		castle1.health = castle2.health = castle2.maxHealth = 1000;
 		this.createSpawnButtons();
 		var once = false;
-
+		//this.enemySpawnTimer = this.time.events.loop(5000, this.spawnEnemys, this);
 
 
 	},
 	render: function() {
 
-		// this.minionsWeak.forEach(function (minion) {
-		// 		game.debug.body(minion);
+		this.minionsWeak.forEach(function (minion) {
+		 		game.debug.body(minion);
+		});
+	  game.debug.body(castle2);
+		// this.enemysWeak.forEach(function (enemy) {
+		// 		game.debug.body(enemy);
 		// });
-	  // game.debug.body(castle2);
+
 },
 
 	update: function() {
 
-	game.physics.arcade.overlap(this.minionsWeak, castle2,this.minionStartFight, null, this);
+	game.physics.arcade.overlap(this.minionsWeak, castle2,this.minionStartFightWithCastle, null, this);
+	//game.physics.arcade.overlap(this.minionsWeak, this.enemysWeak,this.minionStartFight, null, this);
 
 },
 
@@ -45,20 +51,41 @@ Game.prototype = {
 		this.minionMovement(minion);
 	},
 
-	minionStartFight: function(enemy, minion) {
+	// spawnEnemys: function(){
+	// 	var enemy = this.enemysWeak.getFirstExists(false);
+	// 	enemy.reset(640,320);
+	// 	this.enemyMovement(enemy);
+	// },
+
+	// minionStartFight: function(minion, enemy) {
+	//
+	// 	minion.body.velocity.x = 0;
+	// 	enemy.body.velocity.x = 0;
+	// 	minion.animations.play('attack');
+	// 	enemy.animations.play('attack');
+	// 	if (!minion.fights == true) {this.game.time.events.loop(1000, function(obj1, obj2){    this.minionDamage(minion, enemy);}, this); minion.fights = true;}
+	//
+	// },
+
+	minionStartFightWithCastle: function(castle, minion) {
 
 		minion.body.velocity.x = 0;
 		minion.animations.play('attack');
-		//this.minionDamage(castle,minion);
-		if (!minion.fights == true) {this.game.time.events.loop(1000, function(obj1, obj2){    this.minionDamage(enemy,minion);}, this); minion.fights = true;}
-
+		if (!minion.fights == true) {this.game.time.events.loop(1000, function(obj1, obj2){    this.minionDamageCastle(castle, minion);}, this); minion.fights = true;}
+		this.updateCastleHealthBar(castle);
 
 	},
 
  minionMovement: function(minion) {
   minion.body.velocity.x = minion.speed;
  	minion.animations.play('right');
+	minion.fights = false;
 },
+
+// enemyMovement: function(enemy) {
+//  enemy.body.velocity.x = -enemy.speed;
+//  enemy.animations.play('left');
+// },
 
  createMinionsWeak: function()
  {
@@ -75,10 +102,38 @@ Game.prototype = {
 			});
  },
 
- minionDamage: function(enemy, minion) {
-	 enemy.damage(minion.dmg);
-	 this.updateCastleHealthBar(enemy);
-	 if (enemy.health <=0) { castleHealthBar.kill();minion.animations.stop(null, true);minion.fights=false;}
+ // createEnemysWeak: function()
+ // {
+ // 	 this.enemysWeak = this.game.add.group();
+ // 	 this.enemysWeak.enableBody = true;
+ // 	 this.enemysWeak.physicsBodyType = Phaser.Physics.ARCADE;
+ // 	 this.enemysWeak.createMultiple(50, 'enemy_weak');
+ // 	 this.enemysWeak.forEach(function (enemy) {
+ // 		 enemy.animations.add('left', [8,9,10,11,12,13,14,15], 5, true);
+ // 		 enemy.animations.add('attack', [0,1,2,3,4,5,6,7], 5, true);
+ // 		 enemy.health = enemy.maxHealth = 50;
+ // 		 enemy.speed = 20;
+ // 		 enemy.dmg = 0;
+ // 		 enemy.fights = false;
+ // 	 });
+ // },
+
+ // minionDamage: function(minion, enemy) {
+ //
+ //  if (enemy.alive) {
+ // 	 enemy.damage(minion.dmg);
+ //  }
+ //  else {
+ // 	 this.minionMovement(minion);
+ //  }
+ //
+ // },
+
+ minionDamageCastle: function(castle, minion) {
+
+
+	castle.damage(minion.dmg);
+	if (castle.health <=0) { castleHealthBar.kill();minion.animations.stop(null, true);minion.fights=false;}
  },
 
 
