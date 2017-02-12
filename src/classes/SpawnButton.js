@@ -13,8 +13,8 @@ export default class SpawnButton extends Phaser.Button {
 
     onButtonClick() {
         const minion = new Minion(this.game, {
-            x: 20,
-            y: 220,
+            x: 50,
+            y: 315,
             key: 'minion_weak',
             health: 100,
             maxHealth: 100,

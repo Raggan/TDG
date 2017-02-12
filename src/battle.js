@@ -42,15 +42,15 @@ Battle.prototype = {
             })
         ]
         this.players[0].spawnButtonGroup.add(new SpawnButton(this.game, {
-            x: 10,
-            y: 10,
+            x: this.game.width-500,
+            y: this.game.height-20,
             key: 'spawnbutton_minion_weak',
             player: this.players[0]
         }))
         //this.enemySpawnTimer = this.time.events.loop(5000, this.spawnEnemys, this);
     },
 
-    update: function () {
+    update: function() {
         this.game.physics.arcade.collide(this.players[0].minionGroup, this.players[1].castle, Minion.overlapHandler);
     }
 };

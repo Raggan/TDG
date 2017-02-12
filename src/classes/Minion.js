@@ -27,19 +27,23 @@ export default class Minion extends Phaser.Sprite {
         if (this.attacking) {
             this.animations.play('attack')
         }
+        else if (this.body.velocity.x ==0) {
+            this.animations.stop()
+        }
     }
 
     attack(enemy) {
-        this.attacking = true
-        this.body.velocity.x = 0
-        this.game.time.events.loop(1000, () => {
-            console.log(this.dmg, enemy.health)
-            enemy.damage(this.dmg)
-            if (enemy.health <= 0) {
-                this.attacking = false
-            }
-        }, this);
 
+        this.body.velocity.x = 0
+        if (!this.attacking) {
+            this.game.time.events.loop(1000, () => {
+                enemy.damage(this.dmg)
+                if (!enemy.alive) {
+                    this.attacking = false
+                 }
+                this.attacking=true
+            }, this)
+        }
     }
 
     static overlapHandler(enemy, minion) {
