@@ -1,5 +1,6 @@
 import HealthBar from './HealthBar.standalone'
 
+import Castle from './classes/Castle'
 import game from './index.js'
 
 var Battle = function (game) {
@@ -9,21 +10,28 @@ var Battle = function (game) {
 Battle.prototype = {
 
     create: function () {
-        console.log(this.game.world)
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         this.game.add.sprite(0, 0, "background");
-        const castle1 = game.add.sprite(10, 250, "castle2");
-        const castle2 = game.add.sprite(670, 240, "castle1");
 
-        game.physics.arcade.enable(castle1);
-        game.physics.arcade.enable(castle2);
+        new Castle(game, {
+            name: 'castle1',
+            key: 'castle2',
+            x: 10,
+            y: 250,
+            health: 1000,
+            maxHealth: 1000
+        })
+        new Castle(game, {
+            name: 'castle2',
+            key: 'castle1',
+            x: 670,
+            y: 240,
+            health: 1000,
+            maxHealth: 1000
+        })
 
         this.createMinionsWeak();
         //	this.createEnemysWeak();
-        this.createCastleHealthbar();
-        castle1.body.moves = false;
-        castle2.body.moves = false;
-        castle1.health = castle2.health = castle2.maxHealth = 1000;
         this.createSpawnButtons();
         var once = false;
         //this.enemySpawnTimer = this.time.events.loop(5000, this.spawnEnemys, this);
@@ -150,31 +158,7 @@ Battle.prototype = {
         //spawnButtonWeak = game.add.button(30, 30, 'spawnbutton_minion_weak', this.spawnButtonWeakClick, this);
         //spawnButtonWeak.anchor.setTo(0.5, 0.5);
 
-    },
-
-    createCastleHealthbar: function () {
-        var barConfigCastle = {
-            x: 733,
-            y: 220,
-            width: 80,
-            height: 10,
-            bg: {
-                color: '#651828'
-            },
-            bar: {
-                color: '#ff0000'
-            },
-            animationDuration: 200,
-            flipped: false
-        };
-        new HealthBar(this.game, barConfigCastle);
-    },
-
-    updateCastleHealthBar: function (castle) {
-        this.game.getByName('castleHealthBar').setPercent(castle.health / castle.maxHealth * 100);
-
     }
-
 };
 
 export default Battle
