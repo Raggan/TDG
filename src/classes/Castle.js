@@ -4,9 +4,10 @@ import Healthbar from '../HealthBar.standalone'
 export default class Castle extends Phaser.Sprite {
     constructor(game, opts) {
         super(game, opts.x, opts.y, opts.key, opts.frame)
+        this.game = game
         game.add.existing(this)
-        this.name = opts.name
         game.physics.arcade.enable(this)
+        this.name = opts.name
         this.body.moves = false
         this.health = opts.health
         this.maxHealth = opts.maxHealth
@@ -25,6 +26,15 @@ export default class Castle extends Phaser.Sprite {
             animationDuration: 200,
             flipped: false
         })
+        this.updateHealthBar()
+    }
+
+    damage(amount) {
+        super.damage(amount)
+        this.updateHealthBar()
+    }
+
+    updateHealthBar() {
         this.healthbar.setPercent(this.health / this.maxHealth * 100)
     }
 }
