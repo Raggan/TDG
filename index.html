@@ -5,29 +5,20 @@
         <title>TDG</title>
         <style>body {margin: 0;padding: 0;}</style>
 
-        <script src="lib/phaser.min.js"></script>
-        <script src="src/boot.js"></script>
-        <script src="src/preload.js"></script>
-        <script src="src/menu.js"></script>
-        <script src="src/maps.js"></script>
-        <script src="src/game3.js"></script>
-        <script src="src/healthbar.standalone.js"></script>
+        <script src="http://localhost:8080/bundle.js"></script>
+
+        <!--<script src="lib/phaser.min.js"></script>-->
+        <!--<script src="src/boot.js"></script>-->
+        <!--<script src="src/preload.js"></script>-->
+        <!--<script src="src/menu.js"></script>-->
+        <!--<script src="src/maps.js"></script>-->
+        <!--<script src="src/game3.js"></script>-->
+        <!--<script src="src/healthbar.standalone.js"></script>-->
         <style type="text/css">
           body {
             margin: 0;
           }
         </style>
-        <script type="text/javascript">
-
-          var game = new Phaser.Game(800, 439, Phaser.CANVAS, '');
-
-          game.state.add("Boot", Boot);
-          game.state.add("Preload", Preload);
-          game.state.add("Menu", Menu);
-          game.state.add("Maps", Maps);
-          game.state.add("Game", Game);
-          game.state.start("Boot");
-        </script>
     </head>
     <body>
 

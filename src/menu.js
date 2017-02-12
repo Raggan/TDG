@@ -1,12 +1,15 @@
-var Menu = function(game){};
+var Menu = function (game) {
+};
 
 Menu.prototype = {
 
-	menu: function(){
+    menu: function () {
 
-	},
+    },
 
-	create: function(){
-		this.game.state.start("Maps");
-	}
+    create: function () {
+        this.game.state.start("Maps");
+    }
 }
+
+module.exports = Menu

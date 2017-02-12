@@ -1,12 +1,15 @@
-var Maps = function(game){};
+var Maps = function (game) {
+};
 
 Maps.prototype = {
 
-	maps: function(){
+    maps: function () {
 
-	},
+    },
 
-	create: function(){
-		this.game.state.start("Game");
-	}
+    create: function () {
+        this.game.state.start("Battle");
+    }
 }
+
+module.exports = Maps
