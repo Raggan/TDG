@@ -4,7 +4,7 @@
   "description": "",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jasmine JASMINE_CONFIG_PATH=jasmine.json",
     "build:prod": "webpack -p",
     "build:dev": "webpack-dev-server --hot --inline"
   },
@@ -30,6 +30,7 @@
     "webpack": "^2.2.1"
   },
   "devDependencies": {
+    "jasmine-es6": "^0.4.0",
     "webpack-dev-server": "^2.3.0"
   }
 }

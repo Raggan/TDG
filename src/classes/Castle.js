@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-import Healthbar from '../HealthBar.standalone'
+import HealthBar from '../HealthBar.standalone'
 
 export default class Castle extends Phaser.Sprite {
     constructor(game, opts) {
@@ -12,7 +12,7 @@ export default class Castle extends Phaser.Sprite {
         this.health = opts.health
         this.maxHealth = opts.maxHealth
 
-        this.healthbar = new Healthbar(game, {
+        this.healthBar = new HealthBar(game, {
             x: opts.x + 63,
             y: opts.y - 20,
             width: 80,
@@ -35,6 +35,9 @@ export default class Castle extends Phaser.Sprite {
     }
 
     updateHealthBar() {
-        this.healthbar.setPercent(this.health / this.maxHealth * 100)
+        this.healthBar.setPercent(this.health / this.maxHealth * 100)
+        if (this.health <= 0) {
+            this.healthBar.kill();
+        }
     }
 }

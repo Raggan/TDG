@@ -9,12 +9,12 @@ export default class Minion extends Phaser.Sprite {
         game.physics.arcade.enable(this)
         this.health = opts.health
         this.maxHealth = opts.maxHealth
-        this.animations.add('right', [9, 10, 11, 12, 13, 14, 15, 16, 17], 10, true);
-        this.animations.add('left', [8, 9, 10, 11, 12, 13, 14, 15], 5, true);
-        this.animations.add('attack', [0, 1, 2, 3, 4, 5, 6, 7, 8], 10, true);
-        this.body.velocity = opts.velocity;
+        this.animations.add('right', [9, 10, 11, 12, 13, 14, 15, 16, 17], 10, true)
+        this.animations.add('left', [8, 9, 10, 11, 12, 13, 14, 15], 5, true)
+        this.animations.add('attack', [0, 1, 2, 3, 4, 5, 6, 7, 8], 10, true)
+        this.body.velocity = opts.velocity
         this.dmg = opts.dmg;
-        this.attacking = false;
+        this.attacking = false
     }
 
 
