@@ -27,7 +27,9 @@ Battle.prototype = {
                     y: 250,
                     health: 1000,
                     maxHealth: 1000
-                })
+                }),
+                resources: 100,
+                maxResources: 500
             }),
             new Player(this.game, {
                 name: 'Simon',
@@ -41,13 +43,26 @@ Battle.prototype = {
                 })
             })
         ]
+
         this.players[0].spawnButtonGroup.add(new SpawnButton(this.game, {
             x: this.game.width-500,
             y: this.game.height-20,
             key: 'spawnbutton_minion_weak',
             player: this.players[0]
         }))
-        //this.enemySpawnTimer = this.time.events.loop(5000, this.spawnEnemys, this);
+
+        var resourcesText = this.add.text(450,30, 'Ressourcen: ' + this.players[0].resources + ' / ' + this.players[0].maxResources, {
+            font: '24px Arial Black',
+            fill: '#fff',
+            strokeThickness: 4
+        });
+
+        this.time.events.loop(1000, function() {
+            if (this.players[0].resources < this.players[0].maxResources) {
+                this.players[0].resources++
+                resourcesText.text = 'Ressourcen: ' + this.players[0].resources + ' / ' + this.players[0].maxResources
+            }
+        }, this);
     },
 
     // render: function() {

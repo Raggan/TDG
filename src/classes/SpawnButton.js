@@ -23,8 +23,17 @@ export default class SpawnButton extends Phaser.Button {
                 y: 0
             },
             dmg: 10,
-            orientation: 'left'
+            orientation: 'left',
+            cost: 100
         })
-        this.player.minionGroup.add(minion)
+
+        if (this.player.resources >= minion.cost) {
+            this.player.resources = this.player.resources - minion.cost
+            this.player.minionGroup.add(minion)
+        }
+        else {
+            minion.kill();
+        }
+
     }
 }

@@ -5,7 +5,8 @@ export default class Player {
         this.spawnButtonGroup = game.add.group()
         this.name = opts.name
         this.castle = opts.castle
-        this.resources = 100
+        this.resources = opts.resources
+        this.maxResources = opts.maxResources
         this.skills = []
     }
 }

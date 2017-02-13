@@ -16,6 +16,7 @@ export default class Minion extends Phaser.Sprite {
         this.body.velocity = opts.velocity
         this.dmg = opts.dmg;
         this.orientation = opts.orientation
+        this.cost = opts.cost
         this.attacking = false
     }
 
