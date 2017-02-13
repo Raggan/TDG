@@ -10,10 +10,12 @@ export default class Minion extends Phaser.Sprite {
         this.health = opts.health
         this.maxHealth = opts.maxHealth
         this.animations.add('right', [9, 10, 11, 12, 13, 14, 15, 16, 17], 10, true)
-        this.animations.add('left', [8, 9, 10, 11, 12, 13, 14, 15], 5, true)
-        this.animations.add('attack', [0, 1, 2, 3, 4, 5, 6, 7, 8], 10, true)
+        this.animations.add('left', [8, 9, 10, 11, 12, 13, 14, 15, 16], 5, true)
+        this.animations.add('attack-right', [0, 1, 2, 3, 4, 5, 6, 7], 10, true)
+        this.animations.add('attack-left', [0, 1, 2, 3, 4, 5, 6, 7], 10, true)
         this.body.velocity = opts.velocity
         this.dmg = opts.dmg;
+        this.orientation = opts.orientation
         this.attacking = false
     }
 
@@ -26,8 +28,11 @@ export default class Minion extends Phaser.Sprite {
         else if (this.body.velocity.x > 0) {
             this.animations.play('right')
         }
-        if (this.attacking) {
-            this.animations.play('attack')
+        if (this.attacking && this.orientation == 'right') {
+            this.animations.play('attack-right')
+        }
+        else if (this.attacking && this.orientation == 'left') {
+            this.animations.play('attack-left')
         }
         else if (this.body.velocity.x ==0) {
             this.animations.stop()
