@@ -50,8 +50,15 @@ Battle.prototype = {
         //this.enemySpawnTimer = this.time.events.loop(5000, this.spawnEnemys, this);
     },
 
+    render: function() {
+        this.players[0].minionGroup.forEach(function (minion) {
+          		this.game.debug.body(minion)
+        }, this)
+        this.game.debug.body(this.players[1].castle)
+    },
+
     update: function() {
-        this.game.physics.arcade.collide(this.players[0].minionGroup, this.players[1].castle, Minion.overlapHandler);
+        this.game.physics.arcade.collide(this.players[0].minionGroup, this.players[1].castle, Minion.collideHandler);
     }
 };
 

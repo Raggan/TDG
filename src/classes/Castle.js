@@ -8,7 +8,7 @@ export default class Castle extends Phaser.Sprite {
         game.add.existing(this)
         game.physics.arcade.enable(this)
         this.name = opts.name
-        this.body.moves = false
+        this.body.immovable=true
         this.health = opts.health
         this.maxHealth = opts.maxHealth
 
