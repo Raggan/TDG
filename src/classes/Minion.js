@@ -13,13 +13,12 @@ export default class Minion extends Phaser.Sprite {
         this.animations.add('left', [8, 9, 10, 11, 12, 13, 14, 15, 16], 5, true)
         this.animations.add('attack-right', [0, 1, 2, 3, 4, 5, 6, 7], 10, true)
         this.animations.add('attack-left', [0, 1, 2, 3, 4, 5, 6, 7], 10, true)
-        this.body.velocity = opts.velocity
+        this.velocity = opts.velocity
         this.dmg = opts.dmg;
         this.orientation = opts.orientation
         this.cost = opts.cost
-        this.attacking = false
+        this.targets = []
     }
-
 
 
     update() {
@@ -29,29 +28,45 @@ export default class Minion extends Phaser.Sprite {
         else if (this.body.velocity.x > 0) {
             this.animations.play('right')
         }
-        if (this.attacking && this.orientation == 'right') {
+        if (this.targets.length && this.orientation == 'right') {
             this.animations.play('attack-right')
         }
-        else if (this.attacking && this.orientation == 'left') {
+        else if (this.targets.length && this.orientation == 'left') {
             this.animations.play('attack-left')
         }
-        else if (this.body.velocity.x ==0) {
-            this.animations.stop()
+
+        if (!this.alive) {
+            this.targets = []
         }
+
+        if (this.targets.length) {
+            this.targets.forEach((target, index) => {
+                if (target.alive) {
+                    target.damage(this.dmg)
+                } else {
+                    this.targets.splice(index, 1)
+                }
+            })
+        }
+        if (!this.targets.length) {
+            this.body.velocity.x = this.velocity.x
+        }
+        // if (this.targets.length) {
+        //     console.log(this.health, this.targets.health)
+        // }
     }
 
     attack(enemy) {
-            this.attacking=true;
-            this.game.time.events.loop(1000, () => {
-                enemy.damage(this.dmg)
-                if (!enemy.alive) {
-                    this.attacking = false
-                 }
-                this.attacking=true
-            }, this)
-            }
+        if (this.targets.indexOf(enemy) === -1) {
+            this.body.velocity.x = 0;
+            this.targets.push(enemy);
+        }
+    }
 
     static collideHandler(enemy, minion) {
         minion.attack(enemy)
+        if (typeof enemy.attack === 'function') {
+            enemy.attack(minion)
+        }
     }
 }

@@ -22,8 +22,8 @@ export default class SpawnButton extends Phaser.Button {
                 x: 50,
                 y: 0
             },
-            dmg: 10,
-            orientation: 'left',
+            dmg: 1,
+            orientation: 'right',
             cost: 100
         })
 
