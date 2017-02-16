@@ -42,7 +42,7 @@ export default class Minion extends Phaser.Sprite {
         if (this.targets.length) {
             this.targets.forEach((target, index) => {
                 if (target.alive) {
-                    target.damage(this.dmg)
+                    target.damage(this.dmg/this.targets.length)
                 } else {
                     this.targets.splice(index, 1)
                 }
