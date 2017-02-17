@@ -1,4 +1,3 @@
-import HealthBar from './HealthBar.standalone'
 import Phaser from 'phaser'
 
 import Castle from './classes/Castle'

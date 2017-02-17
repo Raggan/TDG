@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-import Healthbar from '../HealthBar.standalone'
+
 
 export default class Minion extends Phaser.Sprite {
     constructor(game, opts) {
@@ -18,6 +18,12 @@ export default class Minion extends Phaser.Sprite {
         this.orientation = opts.orientation
         this.cost = opts.cost
         this.targets = []
+
+
+        this.emitter = game.add.emitter(0, 0, 100);
+
+        this.emitter.makeParticles('diamond');
+        this.emitter.gravity = 200;
     }
 
 
@@ -61,6 +67,13 @@ export default class Minion extends Phaser.Sprite {
             this.body.velocity.x = 0;
             this.targets.push(enemy);
         }
+    }
+
+    kill() {
+        super.kill()
+        this.emitter.x = this.position.x;
+        this.emitter.y = this.position.y;
+        this.emitter.start(true, 2000, null, 5);
     }
 
     static collideHandler(enemy, minion) {
