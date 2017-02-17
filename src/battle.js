@@ -50,11 +50,13 @@ Battle.prototype = {
             player: this.players[0]
         }))
 
-        this.resourcesText = this.add.text(450,30, 'Ressourcen: ' + this.players[0].resources + ' / ' + this.players[0].maxResources, {
-            font: '24px Arial Black',
+        this.resourcesText = this.add.text(650,30,this.players[0].resources + ' / ' + this.players[0].maxResources, {
+            font: '28px Arial Black',
             fill: '#fff',
             strokeThickness: 4
         });
+
+        this.game.add.image(605,33, 'diamond')
 
          this.time.events.loop(5000, function() {
             const minion = new Minion(this.game, {
@@ -69,7 +71,8 @@ Battle.prototype = {
                 },
                 dmg: 1/12,
                 orientation: 'left',
-                cost: 100
+                cost: 100,
+                mainPlayer: this.players[0]
             })
             this.players[1].minionGroup.add(minion)
         }, this)
@@ -89,7 +92,7 @@ Battle.prototype = {
 
         if (this.players[0].resources < this.players[0].maxResources) {
             this.players[0].resources = this.players[0].resources + 1/6
-            this.resourcesText.text = 'Ressourcen: ' + Math.round(this.players[0].resources) + ' / ' + this.players[0].maxResources
+            this.resourcesText.text = Math.round(this.players[0].resources) + ' / ' + this.players[0].maxResources
         }
      }
 };
