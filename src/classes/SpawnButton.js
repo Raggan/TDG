@@ -16,8 +16,8 @@ export default class SpawnButton extends Phaser.Button {
             x: 50,
             y: 315,
             key: 'minion_weak',
-            health: 100,
-            maxHealth: 100,
+            health: 200,
+            maxHealth: 200,
             velocity: {
                 x: 50,
                 y: 0

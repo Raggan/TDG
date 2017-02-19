@@ -4,6 +4,7 @@ import Castle from './classes/Castle'
 import Player from './classes/Player'
 import Minion from './classes/Minion'
 import SpawnButton from './classes/SpawnButton'
+import ResourcesButton from './classes/ResourcesButton'
 
 var Battle = function (game) {
     this.game = game
@@ -12,8 +13,10 @@ var Battle = function (game) {
 Battle.prototype = {
 
     create: function () {
-        this.game.physics.startSystem(Phaser.Physics.ARCADE);
-        this.game.add.sprite(0, 0, "background");
+        this.game.physics.startSystem(Phaser.Physics.ARCADE)
+        this.game.add.sprite(0, 0, "background")
+        this.monsterSpawnTimer =
+        this.monsterSpawnTime = this.game.rnd.integerInRange(2500, 10000)
 
         // players
         this.players = [
@@ -28,7 +31,13 @@ Battle.prototype = {
                     maxHealth: 1000
                 }),
                 resources: 100,
-                maxResources: 500
+                maxResources: 500,
+                maxResourcesFactor: 1.05,
+                resourcesRefreshRate: 1/6,
+                resourcesRefreshFactor: 1.1,
+                resourcesMaxLevel: 8,
+                resourcesUpdateCost: 100,
+                resourcesUpdateFactor: 1.25
             }),
             new Player(this.game, {
                 name: 'Simon',
@@ -54,28 +63,16 @@ Battle.prototype = {
             font: '28px Arial Black',
             fill: '#fff',
             strokeThickness: 4
-        });
+        })
+
+        this.resourcesButton = new ResourcesButton(this.game, {
+            x: this.game.width-150,
+            y: this.game.height-20,
+            key: 'spawnbutton_minion_weak',
+            player: this.players[0]
+        })
 
         this.game.add.image(605,33, 'diamond')
-
-         this.time.events.loop(5000, function() {
-            const minion = new Minion(this.game, {
-                x: 670,
-                y: 315,
-                key: 'enemy_weak',
-                health: 100,
-                maxHealth: 100,
-                velocity: {
-                    x: -50,
-                    y: 0
-                },
-                dmg: 1/12,
-                orientation: 'left',
-                cost: 100,
-                mainPlayer: this.players[0]
-            })
-            this.players[1].minionGroup.add(minion)
-        }, this)
     },
 
     // render: function() {
@@ -91,10 +88,32 @@ Battle.prototype = {
         this.game.physics.arcade.overlap(this.players[0].minionGroup, this.players[1].minionGroup, Minion.collideHandler)
 
         if (this.players[0].resources < this.players[0].maxResources) {
-            this.players[0].resources = this.players[0].resources + 1/6
-            this.resourcesText.text = Math.round(this.players[0].resources) + ' / ' + this.players[0].maxResources
+            this.players[0].resources = this.players[0].resources + this.players[0].resourcesRefreshRate
+            this.resourcesText.text = Math.round(this.players[0].resources) + ' / ' + Math.round(this.players[0].maxResources)
         }
-     }
-};
+        this.monsterSpawnTimer += this.time.elapsed
+        if (this.monsterSpawnTimer > this.monsterSpawnTime) {
+            this.monsterSpawnTimer = 0
+
+            const minion = new Minion(this.game, {
+                x: 670,
+                y: 315,
+                key: 'enemy_weak',
+                health: 200,
+                maxHealth: 200,
+                velocity: {
+                    x: -50,
+                    y: 0
+                },
+                dmg: 1/12,
+                orientation: 'left',
+                cost: 100,
+                mainPlayer: this.players[0]
+            })
+            this.players[1].minionGroup.add(minion)
+            this.monsterSpawnTime = this.game.rnd.integerInRange(2500, 10000)
+        }
+    }
+}
 
 export default Battle
