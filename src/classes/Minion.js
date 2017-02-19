@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-import Healthbar from '../HealthBar.standalone'
+
 
 export default class Minion extends Phaser.Sprite {
     constructor(game, opts) {
@@ -18,6 +18,13 @@ export default class Minion extends Phaser.Sprite {
         this.orientation = opts.orientation
         this.cost = opts.cost
         this.targets = []
+        this.mainPlayer = opts.mainPlayer
+
+
+        this.emitter = game.add.emitter(0, 0, 100);
+
+        this.emitter.makeParticles('diamond');
+        this.emitter.gravity = 200;
     }
 
 
@@ -42,7 +49,7 @@ export default class Minion extends Phaser.Sprite {
         if (this.targets.length) {
             this.targets.forEach((target, index) => {
                 if (target.alive) {
-                    target.damage(this.dmg/this.targets.length)
+                    target.damage(this.dmg / this.targets.length)
                 } else {
                     this.targets.splice(index, 1)
                 }
@@ -51,16 +58,28 @@ export default class Minion extends Phaser.Sprite {
         if (!this.targets.length) {
             this.body.velocity.x = this.velocity.x
         }
-        // if (this.targets.length) {
-        //     console.log(this.health, this.targets.health)
-        // }
-    }
+      }
 
     attack(enemy) {
         if (this.targets.indexOf(enemy) === -1) {
             this.body.velocity.x = 0;
             this.targets.push(enemy);
         }
+    }
+
+    kill() {
+        super.kill()
+
+        if (this.mainPlayer) {
+            this.emitter.x = this.position.x;
+            this.emitter.y = this.position.y;
+            this.emitter.start(true, 2000, null, 5);
+
+            if (this.mainPlayer.resources < this.mainPlayer.maxResources) {
+                this.mainPlayer.resources = this.mainPlayer.resources + 10
+            }
+         }
+
     }
 
     static collideHandler(enemy, minion) {

@@ -10,6 +10,7 @@ Preload.prototype = {
         this.game.load.spritesheet('minion_weak', 'assets/Knight_Spritesheet_walk.png', 40, 48);
         this.game.load.spritesheet('enemy_weak', 'assets/Zombie_Spritesheet.png', 40, 48);
         this.game.load.image('spawnbutton_minion_weak', 'assets/spawnbutton_minion_weak_1.png', 40, 40);
+        this.game.load.image('diamond', 'assets/diamond.png');
 
     },
 
