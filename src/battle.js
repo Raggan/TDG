@@ -58,9 +58,9 @@ Battle.prototype = {
             key: 'spawnbutton_minion_weak',
             player: this.players[0]
         }))
-
-        this.resourcesText = this.add.text(650,30,this.players[0].resources + ' / ' + this.players[0].maxResources, {
-            font: '28px Arial Black',
+        this.game.add.image(645,20, 'resources')
+        this.resourcesText = this.add.text(697,32,this.players[0].resources + ' / ' + this.players[0].maxResources, {
+            font: '16px Arial Black',
             fill: '#fff',
             strokeThickness: 4
         })
@@ -72,7 +72,7 @@ Battle.prototype = {
             player: this.players[0]
         })
 
-        this.game.add.image(605,33, 'diamond')
+
     },
 
     // render: function() {
