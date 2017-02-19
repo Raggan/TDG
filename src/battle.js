@@ -51,18 +51,29 @@ Battle.prototype = {
             player: this.players[0]
         }))
 
-        var resourcesText = this.add.text(450,30, 'Ressourcen: ' + this.players[0].resources + ' / ' + this.players[0].maxResources, {
+        this.resourcesText = this.add.text(450,30, 'Ressourcen: ' + this.players[0].resources + ' / ' + this.players[0].maxResources, {
             font: '24px Arial Black',
             fill: '#fff',
             strokeThickness: 4
         });
 
-        this.time.events.loop(1000, function() {
-            if (this.players[0].resources < this.players[0].maxResources) {
-                this.players[0].resources++
-                resourcesText.text = 'Ressourcen: ' + this.players[0].resources + ' / ' + this.players[0].maxResources
-            }
-        }, this);
+         this.time.events.loop(5000, function() {
+            const minion = new Minion(this.game, {
+                x: 670,
+                y: 315,
+                key: 'enemy_weak',
+                health: 100,
+                maxHealth: 100,
+                velocity: {
+                    x: -50,
+                    y: 0
+                },
+                dmg: 1/12,
+                orientation: 'left',
+                cost: 100
+            })
+            this.players[1].minionGroup.add(minion)
+        }, this)
     },
 
     // render: function() {
@@ -73,8 +84,15 @@ Battle.prototype = {
     // },
 
     update: function() {
-        this.game.physics.arcade.collide(this.players[0].minionGroup, this.players[1].castle, Minion.collideHandler);
-    }
+        this.game.physics.arcade.collide(this.players[0].minionGroup, this.players[1].castle, Minion.collideHandler)
+        this.game.physics.arcade.collide(this.players[1].minionGroup, this.players[0].castle, Minion.collideHandler)
+        this.game.physics.arcade.overlap(this.players[0].minionGroup, this.players[1].minionGroup, Minion.collideHandler)
+
+        if (this.players[0].resources < this.players[0].maxResources) {
+            this.players[0].resources = this.players[0].resources + 1/6
+            this.resourcesText.text = 'Ressourcen: ' + Math.round(this.players[0].resources) + ' / ' + this.players[0].maxResources
+        }
+     }
 };
 
 export default Battle
