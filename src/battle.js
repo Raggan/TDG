@@ -53,11 +53,40 @@ Battle.prototype = {
         ]
 
         this.players[0].spawnButtonGroup.add(new SpawnButton(this.game, {
-            x: this.game.width-500,
-            y: this.game.height-20,
-            key: 'spawnbutton_minion_weak',
+            x: 150,
+            y: 20,
+            key: 'spawnbutton_knight',
             player: this.players[0]
         }))
+
+        this.players[0].spawnButtonGroup.add(new SpawnButton(this.game, {
+            x: 220,
+            y: 20,
+            key: 'spawnbutton_knight',
+            player: this.players[0]
+        }))
+
+        this.players[0].spawnButtonGroup.add(new SpawnButton(this.game, {
+            x: 290,
+            y: 20,
+            key: 'spawnbutton_knight',
+            player: this.players[0]
+        }))
+
+        this.players[0].spawnButtonGroup.add(new SpawnButton(this.game, {
+            x: 360,
+            y: 20,
+            key: 'spawnbutton_knight',
+            player: this.players[0]
+        }))
+
+        this.players[0].spawnButtonGroup.add(new SpawnButton(this.game, {
+            x: 430,
+            y: 20,
+            key: 'spawnbutton_knight',
+            player: this.players[0]
+        }))
+
         this.game.add.image(645,20, 'resources')
         this.resourcesText = this.add.text(697,32,this.players[0].resources + ' / ' + this.players[0].maxResources, {
             font: '16px Arial Black',
@@ -66,9 +95,9 @@ Battle.prototype = {
         })
 
         this.resourcesButton = new ResourcesButton(this.game, {
-            x: this.game.width-150,
-            y: this.game.height-20,
-            key: 'spawnbutton_minion_weak',
+            x: 540,
+            y: 20,
+            key: 'resources_button',
             player: this.players[0]
         })
 
