@@ -9,8 +9,8 @@ const p2 = path.join(phaserModule, 'build/custom/p2.js')
 module.exports = {
     entry: './src/index.js',
     output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js'
+        path: path.resolve(__dirname, 'static'),
+        filename: 'bundle.min.js'
     },
     devtool: 'cheap-source-map',
     module: {
