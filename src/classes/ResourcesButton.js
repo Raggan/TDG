@@ -15,7 +15,7 @@ export default class ResourcesButton extends Phaser.Button {
     }
 
     onButtonClick() {
-        if (this.resourcesLevel <= this.player.resourcesMaxLevel && this.player.resources >= this.player.resourcesUpdateCost) {
+        if (this.resourcesLevel < this.player.resourcesMaxLevel && this.player.resources >= this.player.resourcesUpdateCost) {
             this.player.resources = this.player.resources - this.player.resourcesUpdateCost
             this.player.resourcesRefreshRate = this.player.resourcesRefreshRate * this.player.resourcesRefreshFactor
             this.player.maxResources = this.player.maxResources * this.player.maxResourcesFactor
@@ -26,6 +26,7 @@ export default class ResourcesButton extends Phaser.Button {
                 this.resourcesLevelText.text = 'LV. ' + String(this.resourcesLevel)
             } else {
                 this.resourcesLevelText.text = 'MAX'
+                this.resourceText.text = '-------'
             }
         }
     }
