@@ -66,28 +66,32 @@ Battle.prototype = {
             x: 220,
             y: 20,
             key: 'spawnbutton_knight',
-            player: this.players[0]
+            player: this.players[0],
+            minionOptions: MinionKnight
         }))
 
         this.players[0].spawnButtonGroup.add(new SpawnButton(this.game, {
             x: 290,
             y: 20,
             key: 'spawnbutton_knight',
-            player: this.players[0]
+            player: this.players[0],
+            minionOptions: MinionKnight
         }))
 
         this.players[0].spawnButtonGroup.add(new SpawnButton(this.game, {
             x: 360,
             y: 20,
             key: 'spawnbutton_knight',
-            player: this.players[0]
+            player: this.players[0],
+            minionOptions: MinionKnight
         }))
 
         this.players[0].spawnButtonGroup.add(new SpawnButton(this.game, {
             x: 430,
             y: 20,
             key: 'spawnbutton_knight',
-            player: this.players[0]
+            player: this.players[0],
+            minionOptions: MinionKnight
         }))
 
         this.game.add.image(645,20, 'resources')
