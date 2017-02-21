@@ -1,10 +1,12 @@
 import Phaser from 'phaser'
 
+import { MinionKnight } from './minionConfig.js'
 import Castle from './classes/Castle'
 import Player from './classes/Player'
 import Minion from './classes/Minion'
 import SpawnButton from './classes/SpawnButton'
 import ResourcesButton from './classes/ResourcesButton'
+
 
 var Battle = function (game) {
     this.game = game
@@ -56,7 +58,8 @@ Battle.prototype = {
             x: 150,
             y: 20,
             key: 'spawnbutton_knight',
-            player: this.players[0]
+            player: this.players[0],
+            minionOptions: MinionKnight
         }))
 
         this.players[0].spawnButtonGroup.add(new SpawnButton(this.game, {
