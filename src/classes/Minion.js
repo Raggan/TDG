@@ -9,17 +9,15 @@ export default class Minion extends Phaser.Sprite {
         game.physics.arcade.enable(this)
         this.health = opts.health
         this.maxHealth = opts.maxHealth
-        this.animations.add('right', [9, 10, 11, 12, 13, 14, 15, 16, 17], 10, true)
-        this.animations.add('left', [8, 9, 10, 11, 12, 13, 14, 15, 16], 5, true)
-        this.animations.add('attack-right', [0, 1, 2, 3, 4, 5, 6, 7], 10, true)
-        this.animations.add('attack-left', [0, 1, 2, 3, 4, 5, 6, 7], 10, true)
+        this.anim = opts.anim
         this.velocity = opts.velocity
-        this.dmg = opts.dmg;
+        this.dmg = opts.dmg
         this.orientation = opts.orientation
         this.cost = opts.cost
         this.targets = []
         this.mainPlayer = opts.mainPlayer
-
+        this.animations.add('fight', Phaser.Animation.generateFrameNames(this.anim.key1, this.anim.first, this.anim.last, '', this.anim.digits), 10, true, false);
+        this.animations.add('walk', Phaser.Animation.generateFrameNames(this.anim.key2, this.anim.first, this.anim.last, '', this.anim.digits), 10, true, false);
 
         this.emitter = game.add.emitter(0, 0, 100);
 
@@ -30,16 +28,16 @@ export default class Minion extends Phaser.Sprite {
 
     update() {
         if (this.body.velocity.x < 0) {
-            this.animations.play('left')
+            this.animations.play('walk')
         }
         else if (this.body.velocity.x > 0) {
-            this.animations.play('right')
+            this.animations.play('walk')
         }
         if (this.targets.length && this.orientation == 'right') {
-            this.animations.play('attack-right')
+            this.animations.play('fight')
         }
         else if (this.targets.length && this.orientation == 'left') {
-            this.animations.play('attack-left')
+            this.animations.play('fight')
         }
 
         if (!this.alive) {
