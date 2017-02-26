@@ -1,6 +1,8 @@
 import Phaser from 'phaser'
 
-import { MinionKnight } from './minionConfig.js'
+import { MinionKnightRight } from './minionConfig.js'
+import { ZombieMaleLeft } from './minionConfig.js'
+import { AdventureGirlRight } from './minionConfig.js'
 import Castle from './classes/Castle'
 import Player from './classes/Player'
 import Minion from './classes/Minion'
@@ -59,15 +61,15 @@ Battle.prototype = {
             y: 20,
             key: 'spawnbutton_knight',
             player: this.players[0],
-            minionOptions: MinionKnight
+            minionOptions: MinionKnightRight
         }))
 
         this.players[0].spawnButtonGroup.add(new SpawnButton(this.game, {
             x: 220,
             y: 20,
-            key: 'spawnbutton_knight',
+            key: 'spawnbutton_AdventureGirl',
             player: this.players[0],
-            minionOptions: MinionKnight
+            minionOptions: AdventureGirlRight
         }))
 
         this.players[0].spawnButtonGroup.add(new SpawnButton(this.game, {
@@ -75,7 +77,7 @@ Battle.prototype = {
             y: 20,
             key: 'spawnbutton_knight',
             player: this.players[0],
-            minionOptions: MinionKnight
+            minionOptions: MinionKnightRight
         }))
 
         this.players[0].spawnButtonGroup.add(new SpawnButton(this.game, {
@@ -83,7 +85,7 @@ Battle.prototype = {
             y: 20,
             key: 'spawnbutton_knight',
             player: this.players[0],
-            minionOptions: MinionKnight
+            minionOptions: MinionKnightRight
         }))
 
         this.players[0].spawnButtonGroup.add(new SpawnButton(this.game, {
@@ -91,7 +93,7 @@ Battle.prototype = {
             y: 20,
             key: 'spawnbutton_knight',
             player: this.players[0],
-            minionOptions: MinionKnight
+            minionOptions: MinionKnightRight
         }))
 
         this.game.add.image(645,20, 'resources')
@@ -131,45 +133,7 @@ Battle.prototype = {
         if (this.monsterSpawnTimer > this.monsterSpawnTime) {
             this.monsterSpawnTimer = 0
 
-            const minion = new Minion(this.game, {
-                x: 670,
-                y: 315,
-                key: 'Knight-Left',
-                health: 200,
-                maxHealth: 200,
-                velocity: {
-                    x: -50,
-                    y: 0
-                },
-                dmg: 1/12,
-                orientation: 'left',
-                cost: 100,
-                anim: {
-                    frameNames1: [
-                        'Attack_(1).png',
-                        'Attack_(2).png',
-                        'Attack_(3).png',
-                        'Attack_(4).png',
-                        'Attack_(5).png',
-                        'Attack_(6).png',
-                        'Attack_(7).png',
-                        'Attack_(8).png',
-                        'Attack_(9).png',
-                        'Attack_(10).png'
-                    ],
-                    frameNames2: [
-                        'Walk_(1).png',
-                        'Walk_(2).png',
-                        'Walk_(3).png',
-                        'Walk_(4).png',
-                        'Walk_(5).png',
-                        'Walk_(6).png',
-                        'Walk_(7).png',
-                        'Walk_(8).png',
-                        'Walk_(9).png',
-                        'Walk_(10).png'
-                    ]
-                },
+            const minion = new Minion(this.game, ZombieMaleLeft, {
                 mainPlayer: this.players[0]
             })
             this.players[1].minionGroup.add(minion)

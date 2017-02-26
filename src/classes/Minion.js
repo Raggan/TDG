@@ -30,6 +30,7 @@ export default class Minion extends Phaser.Sprite {
     update() {
         if (this.body.velocity.x !== 0) {
             this.animations.play('walk')
+
         }
         if (this.targets.length && this.orientation == 'right') {
             this.animations.play('fight')
