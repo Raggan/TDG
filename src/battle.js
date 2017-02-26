@@ -35,7 +35,7 @@ Battle.prototype = {
                     x: 10,
                     y: 250,
                     health: this.game.global.castleHealth,
-                    maxHealth: 1000,
+                    maxHealth: this.game.global.castleMaxHealth,
                     enemy: false
                 }),
                 resources: 100,
@@ -54,8 +54,8 @@ Battle.prototype = {
                     key: 'castle1',
                     x: 670,
                     y: 240,
-                    health: 1000,
-                    maxHealth: 1000,
+                    health: this.game.global.castleMaxHealth + (this.game.global.level-1)*100,
+                    maxHealth: this.game.global.castleMaxHealth + (this.game.global.level-1)*100,
                     enemy: true
                 })
             })
@@ -139,6 +139,23 @@ Battle.prototype = {
             fill: '#fff',
             strokeThickness: 4
         })
+        if (this.game.global.level > 1)  {
+            this.newLevelText = this.add.text(this.game.width/2-300, this.game.height/2, 'Your enemy becomes stronger', {
+                font: '40px Arial Black',
+                fill: '#fff',
+                strokeThickness: 4
+            })
+            this.newLevelText.tween = this.game.add.tween(this.newLevelText).to({
+                alpha: 1,
+                y: 0,
+                x: this.game.width/2-300
+            }, 2000, Phaser.Easing.Cubic.Out)
+            this.newLevelText.tween.onComplete.add(function(text, tween){
+                text.kill()
+            })
+            this.newLevelText.tween.start()
+        }
+
     },
 
     // render: function() {
@@ -166,7 +183,7 @@ Battle.prototype = {
             })
             minion.mainPlayer = this.players[0]
             minion.dmg = minion.dmg + (this.game.global.level-1)/50
-            minion.maxHealth = minion.maxHealth + (this.game.global.level-1)*50
+            minion.health = minion.health + (this.game.global.level-1)*10
             this.players[1].minionGroup.add(minion)
             this.monsterSpawnTime = this.game.rnd.integerInRange(2500, 10000 - (this.game.global.level-1) * 100)
         }
