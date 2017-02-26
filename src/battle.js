@@ -22,8 +22,8 @@ Battle.prototype = {
     create: function () {
         this.game.physics.startSystem(Phaser.Physics.ARCADE)
         this.game.add.sprite(0, 0, "background")
-        this.monsterSpawnTimer =
-            this.monsterSpawnTime = this.game.rnd.integerInRange(2500, 10000)
+        this.monsterSpawnTimer = 0
+        this.monsterSpawnTime = this.game.rnd.integerInRange(2500, 10000)
 
         // players
         this.players = [
@@ -64,7 +64,7 @@ Battle.prototype = {
             y: 20,
             key: 'spawnbutton_knight',
             player: this.players[0],
-            cost: '100',
+            cost: MinionKnightRight.cost,
             minionOptions: MinionKnightRight
         }))
 
@@ -73,7 +73,7 @@ Battle.prototype = {
             y: 20,
             key: 'spawnbutton_AdventureGirl',
             player: this.players[0],
-            cost: '200',
+            cost: AdventureGirlRight.cost,
             minionOptions: AdventureGirlRight
         }))
 
@@ -82,7 +82,7 @@ Battle.prototype = {
             y: 20,
             key: 'spawnbutton_Jack',
             player: this.players[0],
-            cost: '325',
+            cost: JackRight.cost,
             minionOptions: JackRight
         }))
 
@@ -91,7 +91,7 @@ Battle.prototype = {
             y: 20,
             key: 'spawnbutton_NinjaGuy',
             player: this.players[0],
-            cost: '450',
+            cost: NinjaGuyRight.cost,
             minionOptions: NinjaGuyRight
         }))
 
@@ -100,7 +100,7 @@ Battle.prototype = {
             y: 20,
             key: 'spawnbutton_Robot',
             player: this.players[0],
-            cost: '675',
+            cost: RobotRight.cost,
             minionOptions: RobotRight
         }))
 
@@ -142,8 +142,9 @@ Battle.prototype = {
             this.monsterSpawnTimer = 0
 
             const minion = new Minion(this.game, ZombieMaleLeft, {
-                mainPlayer: this.players[0]
+                //mainPlayer: this.players[0]
             })
+            minion.mainPlayer = this.players[0]
             this.players[1].minionGroup.add(minion)
             this.monsterSpawnTime = this.game.rnd.integerInRange(2500, 10000)
         }

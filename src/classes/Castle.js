@@ -38,7 +38,7 @@ export default class Castle extends Phaser.Sprite {
         this.healthBar.setPercent(this.health / this.maxHealth * 100)
         if (this.health <= 0) {
             this.healthBar.kill();
-            this.game.state.start('Battle')
+            //this.game.state.start('Battle')
         }
     }
 }

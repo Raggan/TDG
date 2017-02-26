@@ -67,7 +67,7 @@ export default class Minion extends Phaser.Sprite {
     kill() {
         super.kill()
 
-        if (this.mainPlayer) {
+        if (this.orientation == 'left') {
             this.emitter.x = this.position.x;
             this.emitter.y = this.position.y;
             this.emitter.start(true, 2000, null, 5);
