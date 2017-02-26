@@ -9,6 +9,12 @@ import Maps from  './maps.js'
 import Battle from  './battle.js'
 
 var game = new Phaser.Game(800, 439, Phaser.CANVAS, '')
+
+game.global = {
+    level: 1,
+    castleHealth: 1000,
+    castleMaxHealth: 1000
+}
 game.state.add('Boot', Boot)
 game.state.add('Preload', Preload)
 game.state.add('Menu', Menu)

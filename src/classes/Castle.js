@@ -28,6 +28,7 @@ export default class Castle extends Phaser.Sprite {
             flipped: false
         })
         this.updateHealthBar()
+
     }
 
     damage(amount) {
@@ -37,9 +38,21 @@ export default class Castle extends Phaser.Sprite {
 
     updateHealthBar() {
         this.healthBar.setPercent(this.health / this.maxHealth * 100)
+
         if (this.health <= 0) {
             this.healthBar.kill();
-            //this.game.state.start('Battle')
+            if (this.enemy) {
+                this.game.global.level++
+            }
+            else if (this.game.global.level > 1) {
+                this.game.global.level = 1
+                this.game.global.castleHealth = this.game.global.castleMaxHealth
+
+            } else {
+                this.game.global.castleHealth = this.game.global.castleMaxHealth
+            }
+
+            this.game.state.start('Battle')
         }
     }
 }

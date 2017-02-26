@@ -34,7 +34,7 @@ Battle.prototype = {
                     key: 'castle2',
                     x: 10,
                     y: 250,
-                    health: 1000,
+                    health: this.game.global.castleHealth,
                     maxHealth: 1000,
                     enemy: false
                 }),
@@ -120,7 +120,25 @@ Battle.prototype = {
             player: this.players[0]
         })
 
+        this.LevelCounter = this.game.add.image(this.game.width/2, this.game.height - 20, 'LevelCounter')
+        this.LevelCounter.anchor.setTo(0.5,0.5)
+        this.add.text(this.game.width/2 -28, this.game.height - 32, 'LVL ' + this.game.global.level, {
+            font: '12px Arial Black',
+            fill: '#fff',
+            strokeThickness: 4
+        })
 
+        this.healthText1 = this.game.add.text(10 +37 , 250 - 27, this.players[0].castle.health + ' / ' + this.players[0].castle.maxHealth, {
+            font: '7px Arial Black',
+            fill: '#fff',
+            strokeThickness: 4
+        })
+
+        this.healthText2 = this.game.add.text(670 +37 , 240 - 27, this.players[1].castle.health + ' / ' + this.players[1].castle.maxHealth, {
+            font: '7px Arial Black',
+            fill: '#fff',
+            strokeThickness: 4
+        })
     },
 
     // render: function() {
@@ -147,9 +165,15 @@ Battle.prototype = {
                 //mainPlayer: this.players[0]
             })
             minion.mainPlayer = this.players[0]
+            minion.dmg = minion.dmg + (this.game.global.level-1)/50
+            minion.maxHealth = minion.maxHealth + (this.game.global.level-1)*50
             this.players[1].minionGroup.add(minion)
-            this.monsterSpawnTime = this.game.rnd.integerInRange(2500, 10000)
+            this.monsterSpawnTime = this.game.rnd.integerInRange(2500, 10000 - (this.game.global.level-1) * 100)
         }
+
+        this.game.global.castleHealth = this.players[0].castle.health
+        this.healthText1.text = Math.round(this.players[0].castle.health) + ' / ' + Math.round(this.players[0].castle.maxHealth)
+        this.healthText2.text = Math.round(this.players[1].castle.health) + ' / ' + Math.round(this.players[1].castle.maxHealth)
     }
 }
 

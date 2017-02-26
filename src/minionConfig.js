@@ -79,7 +79,7 @@ export const AdventureGirlRight = {
 
 export const JackRight = {
     x: 50,
-    y: 315,
+    y: 312,
     key: 'JackRight',
     health: 400,
     maxHealth: 400,
@@ -233,5 +233,5 @@ export const ZombieMaleLeft = {
             'Walk_(8)'
 
         ]
-    },
+    }
 }
