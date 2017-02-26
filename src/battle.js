@@ -3,6 +3,9 @@ import Phaser from 'phaser'
 import { MinionKnightRight } from './minionConfig.js'
 import { ZombieMaleLeft } from './minionConfig.js'
 import { AdventureGirlRight } from './minionConfig.js'
+import { JackRight } from './minionConfig.js'
+import { NinjaGuyRight } from './minionConfig.js'
+import { RobotRight } from './minionConfig.js'
 import Castle from './classes/Castle'
 import Player from './classes/Player'
 import Minion from './classes/Minion'
@@ -61,6 +64,7 @@ Battle.prototype = {
             y: 20,
             key: 'spawnbutton_knight',
             player: this.players[0],
+            cost: '100',
             minionOptions: MinionKnightRight
         }))
 
@@ -69,31 +73,35 @@ Battle.prototype = {
             y: 20,
             key: 'spawnbutton_AdventureGirl',
             player: this.players[0],
+            cost: '200',
             minionOptions: AdventureGirlRight
         }))
 
         this.players[0].spawnButtonGroup.add(new SpawnButton(this.game, {
             x: 290,
             y: 20,
-            key: 'spawnbutton_knight',
+            key: 'spawnbutton_Jack',
             player: this.players[0],
-            minionOptions: MinionKnightRight
+            cost: '325',
+            minionOptions: JackRight
         }))
 
         this.players[0].spawnButtonGroup.add(new SpawnButton(this.game, {
             x: 360,
             y: 20,
-            key: 'spawnbutton_knight',
+            key: 'spawnbutton_NinjaGuy',
             player: this.players[0],
-            minionOptions: MinionKnightRight
+            cost: '450',
+            minionOptions: NinjaGuyRight
         }))
 
         this.players[0].spawnButtonGroup.add(new SpawnButton(this.game, {
             x: 430,
             y: 20,
-            key: 'spawnbutton_knight',
+            key: 'spawnbutton_Robot',
             player: this.players[0],
-            minionOptions: MinionKnightRight
+            cost: '675',
+            minionOptions: RobotRight
         }))
 
         this.game.add.image(645,20, 'resources')

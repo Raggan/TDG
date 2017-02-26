@@ -8,8 +8,9 @@ export default class SpawnButton extends Phaser.Button {
         this.game = game
         game.add.existing(this)
         this.player = opts.player
+        this.cost = opts.cost
         this.minionOptions = opts.minionOptions
-        this.resourceText = this.game.add.text(17,0, '100',{font: "12px Arial Black", fill: "#fff"})
+        this.resourceText = this.game.add.text(17,0, this.cost,{font: "12px Arial Black", fill: "#fff"})
         this.addChild(this.resourceText)
     }
 
