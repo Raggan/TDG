@@ -35,7 +35,8 @@ Battle.prototype = {
                     x: 10,
                     y: 250,
                     health: 1000,
-                    maxHealth: 1000
+                    maxHealth: 1000,
+                    enemy: false
                 }),
                 resources: 100,
                 maxResources: 500,
@@ -54,7 +55,8 @@ Battle.prototype = {
                     x: 670,
                     y: 240,
                     health: 1000,
-                    maxHealth: 1000
+                    maxHealth: 1000,
+                    enemy: true
                 })
             })
         ]

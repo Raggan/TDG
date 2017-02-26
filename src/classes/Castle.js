@@ -11,6 +11,7 @@ export default class Castle extends Phaser.Sprite {
         this.body.immovable=true
         this.health = opts.health
         this.maxHealth = opts.maxHealth
+        this.enemy = opts.enemy
 
         this.healthBar = new HealthBar(game, {
             x: opts.x + 63,
