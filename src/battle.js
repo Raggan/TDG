@@ -154,6 +154,21 @@ Battle.prototype = {
                 text.kill()
             })
             this.newLevelText.tween.start()
+        } else {
+            this.newLevelText = this.add.text(this.game.width/2-100, this.game.height/2, 'New try', {
+                font: '40px Arial Black',
+                fill: '#fff',
+                strokeThickness: 4
+            })
+            this.newLevelText.tween = this.game.add.tween(this.newLevelText).to({
+                alpha: 1,
+                y: 0,
+                x: this.game.width/2-100
+            }, 2000, Phaser.Easing.Cubic.Out)
+            this.newLevelText.tween.onComplete.add(function(text, tween){
+                text.kill()
+            })
+            this.newLevelText.tween.start()
         }
 
     },
