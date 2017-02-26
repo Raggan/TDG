@@ -18,5 +18,4 @@ export const MinionKnight = {
         last: 10,
         digits: 3
     }
-
 }

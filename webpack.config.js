@@ -9,10 +9,10 @@ const p2 = path.join(phaserModule, 'build/custom/p2.js')
 module.exports = {
     entry: './src/index.js',
     output: {
-        path: path.resolve(__dirname, 'static'),
+        path: path.join(__dirname, 'static'),
         filename: 'bundle.min.js'
     },
-    devtool: 'cheap-source-map',
+    devtool: 'source-map',
     module: {
         rules: [
             {test: /pixi\.js/, use: ['expose-loader?PIXI']},

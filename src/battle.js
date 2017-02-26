@@ -144,6 +144,13 @@ Battle.prototype = {
                 dmg: 1/12,
                 orientation: 'left',
                 cost: 100,
+                anim: {
+                    key1: 'Attack',
+                    key2: 'Walk',
+                    first: 1,
+                    last: 10,
+                    digits: 3
+                },
                 mainPlayer: this.players[0]
             })
             this.players[1].minionGroup.add(minion)
