@@ -17,8 +17,8 @@ export default class Minion extends Phaser.Sprite {
         this.targets = []
         this.mainPlayer = opts.mainPlayer
 
-        this.animations.add('fight', Phaser.Animation.generateFrameNames(this.anim.key1, this.anim.frameNames1, 10, true, false))
-        this.animations.add('walk', Phaser.Animation.generateFrameNames(this.anim.key2, this.anim.frameNames2, 10, true, false))
+        this.animations.add('fight', this.anim.frameNames1, 10, true, false)
+        this.animations.add('walk', this.anim.frameNames2, 10, true, false)
 
         this.emitter = game.add.emitter(0, 0, 100);
 

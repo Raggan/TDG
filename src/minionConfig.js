@@ -12,8 +12,6 @@ export const MinionKnight = {
     orientation: 'right',
     cost: 100,
     anim: {
-        key1: 'Attack',
-        key2: 'Walk',
         frameNames1: [
             'Attack_(1).png',
             'Attack_(2).png',

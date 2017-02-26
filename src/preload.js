@@ -13,8 +13,8 @@ Preload.prototype = {
         this.game.load.image('diamond', 'assets/diamond.png')
         this.game.load.image('resources', 'assets/resources_ui.png')
         this.game.load.image('resources_button', 'assets/basic_button_diamond2.png')
-        this.game.load.atlasJSONArray('Knight-Right', 'assets/Knight-Right.png', 'assets/Knight-Right.json');
-        this.game.load.atlasJSONArray('Knight-Left', 'assets/Knight-Left.png', 'assets/Knight-Left.json');
+        this.game.load.atlasJSONHash('Knight-Right', 'assets/Knight-Right.png', 'assets/Knight-Right.json');
+        this.game.load.atlasJSONHash('Knight-Left', 'assets/Knight-Left.png', 'assets/Knight-Left.json');
     },
 
     create: function () {
