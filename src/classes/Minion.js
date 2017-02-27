@@ -23,7 +23,7 @@ export default class Minion extends Phaser.Sprite {
         this.emitter = game.add.emitter(0, 0, 100);
 
         this.emitter.makeParticles('diamond');
-        this.emitter.gravity = 200;
+        this.emitter.gravity = 100;
     }
 
 
@@ -70,12 +70,22 @@ export default class Minion extends Phaser.Sprite {
         if (this.orientation == 'left') {
             this.emitter.x = this.position.x;
             this.emitter.y = this.position.y;
-            this.emitter.start(true, 2000, null, 5);
+            this.emitter.start(true, 2500, null, 5);
+            setTimeout(function() {    this.emitter.forEach((particle) => {
+                if (!particle.exists) {particle.alpha=1}
+                    this.game.add.tween(particle).to({
+                        alpha: 0,
+                        y: 0,
+                        gravity:0,
+                        x: this.game.width/2-300
+                    }, 1000, Phaser.Easing.Cubic.Out, true)
+                })
 
             if (this.mainPlayer.resources < this.mainPlayer.maxResources) {
                 this.mainPlayer.resources = this.mainPlayer.resources + 10
             }
-         }
+         }, 700)
+        }
 
     }
 
