@@ -55,7 +55,8 @@ export default class Minion extends Phaser.Sprite {
         if (!this.targets.length) {
             this.body.velocity.x = this.velocity.x
         }
-      }
+
+    }
 
     attack(enemy) {
         if (this.targets.indexOf(enemy) === -1) {
@@ -70,21 +71,27 @@ export default class Minion extends Phaser.Sprite {
         if (this.orientation == 'left') {
             this.emitter.x = this.position.x;
             this.emitter.y = this.position.y;
-            this.emitter.start(true, 2500, null, 5);
-            setTimeout(function() {    this.emitter.forEach((particle) => {
-                if (!particle.exists) {particle.alpha=1}
+            this.emitter.start(true, 1700, null, 5)
+
+            this.game.time.events.add(700, () => {
+                this.emitter.forEachAlive((particle) => {
                     this.game.add.tween(particle).to({
-                        alpha: 0,
-                        y: 0,
-                        gravity:0,
-                        x: this.game.width/2-300
+                        alpha: 1,
+                        y: 33,
+                        x: 665
+                    }, 1000, Phaser.Easing.Cubic.Out, true)
+
+                    this.game.add.tween(particle.scale).to({
+                        x: 1.75,
+                        y: 1.75
                     }, 1000, Phaser.Easing.Cubic.Out, true)
                 })
+            })
+
 
             if (this.mainPlayer.resources < this.mainPlayer.maxResources) {
                 this.mainPlayer.resources = this.mainPlayer.resources + 10
             }
-         }, 700)
         }
 
     }
